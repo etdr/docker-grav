@@ -13,7 +13,7 @@ RUN apk update && apk add \
     php8-fpm \
     unzip \
     #libfreetype6-dev \
-    freetype \
+    freetype-dev \
     #libjpeg62-turbo-dev \
     libjpeg-turbo-dev \
     libpng-dev \
