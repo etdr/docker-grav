@@ -33,11 +33,15 @@ RUN apk update && apk add \
     micro \
     autoconf make \
     && docker-php-ext-install opcache \
+    #php8-opcache \
     && docker-php-ext-configure intl \
+    #php8-intl \
     && docker-php-ext-install intl \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    #php8-gd \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install zip \
+    #php8-zip \
     && rm -rf /var/lib/apt/lists/*
 
 # set recommended PHP.ini settings
@@ -54,7 +58,9 @@ RUN { \
     echo 'expose_php=off'; \
     } > /usr/local/etc/php/conf.d/php-recommended.ini
 
-RUN docker-php-ext-enable apcu yaml
+RUN pecl install apcu \
+    && pecl install yaml \
+    && docker-php-ext-enable apcu yaml
 
 # Set user to www-data
 RUN chown www-data:www-data /var/www
