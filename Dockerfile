@@ -18,7 +18,7 @@ RUN apk update && apk add \
     libjpeg-turbo-dev \
     libpng-dev \
     #libyaml-dev \
-    yaml \
+    yaml-dev \
     #libzip4 \
     libzip-dev \
     #zlib1g-dev \
