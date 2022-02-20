@@ -30,7 +30,7 @@ RUN apk update && apk add \
     #cron \
     cronie \
     micro \
-    autoconf \
+    autoconf make \
     && docker-php-ext-install opcache \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl \
