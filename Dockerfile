@@ -19,7 +19,7 @@ RUN apk update && apk add \
     libpng-dev \
     #libyaml-dev \
     yaml-dev php8-pecl-yaml \
-    php8-pecl-apcu
+    php8-pecl-apcu \
     #libzip4 \
     libzip-dev \
     #zlib1g-dev \
