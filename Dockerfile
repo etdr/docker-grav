@@ -18,7 +18,8 @@ RUN apk update && apk add \
     libjpeg-turbo-dev \
     libpng-dev \
     #libyaml-dev \
-    yaml-dev \
+    yaml-dev php8-pecl-yaml \
+    php8-pecl-apcu
     #libzip4 \
     libzip-dev \
     #zlib1g-dev \
@@ -53,9 +54,7 @@ RUN { \
     echo 'expose_php=off'; \
     } > /usr/local/etc/php/conf.d/php-recommended.ini
 
-RUN pecl install apcu \
-    && pecl install yaml-2.0.4 \
-    && docker-php-ext-enable apcu yaml
+RUN docker-php-ext-enable apcu yaml
 
 # Set user to www-data
 RUN chown www-data:www-data /var/www
