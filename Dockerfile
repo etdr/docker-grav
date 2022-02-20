@@ -24,7 +24,7 @@ RUN apk update && apk add \
     #zlib1g-dev \
     zlib-dev \
     #libicu-dev \
-    icu-libs \
+    icu-dev \
     g++ \
     git \
     #cron \
