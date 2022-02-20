@@ -1,26 +1,35 @@
-FROM php:7.4-apache
+FROM php:alpine
 LABEL maintainer="Andy Miller <rhuk@getgrav.org> (@rhukster)"
+LABEL modifier="Eli T. Drumm <eli@eli.td>"
 
 # Enable Apache Rewrite + Expires Module
-RUN a2enmod rewrite expires && \
-    sed -i 's/ServerTokens OS/ServerTokens ProductOnly/g' \
-    /etc/apache2/conf-available/security.conf
+# RUN a2enmod rewrite expires && \
+# sed -i 's/ServerTokens OS/ServerTokens ProductOnly/g' \
+# /etc/apache2/conf-available/security.conf
 
 # Install dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apk update && apk add \
+    nginx \
+    php8-fpm \
     unzip \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
+    #libfreetype6-dev \
+    freetype \
+    #libjpeg62-turbo-dev \
+    libjpeg-turbo-dev \
     libpng-dev \
-    libyaml-dev \
-    libzip4 \
+    #libyaml-dev \
+    yaml \
+    #libzip4 \
     libzip-dev \
-    zlib1g-dev \
-    libicu-dev \
+    #zlib1g-dev \
+    zlib-dev \
+    #libicu-dev \
+    icu-libs \
     g++ \
     git \
-    cron \
-    vim \
+    #cron \
+    cronie \
+    micro \
     && docker-php-ext-install opcache \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl \
@@ -67,6 +76,9 @@ RUN (crontab -l; echo "* * * * * cd /var/www/html;/usr/local/bin/php bin/grav sc
 # Return to root user
 USER root
 
+RUN rm /etc/nginx/http.d/default.conf
+RUN cp /var/www/html/webserver-configs/nginx.conf /etc/nginx/http.d
+
 # Copy init scripts
 # COPY docker-entrypoint.sh /entrypoint.sh
 
@@ -75,4 +87,4 @@ VOLUME ["/var/www/html"]
 
 # ENTRYPOINT ["/entrypoint.sh"]
 # CMD ["apache2-foreground"]
-CMD ["sh", "-c", "cron && apache2-foreground"]
+CMD ["sh", "-c", "crond && php-fpm8 && nginx -g 'daemon-off;"]
