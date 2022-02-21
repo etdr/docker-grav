@@ -83,14 +83,15 @@ RUN (crontab -l; echo "* * * * * cd /var/www/html;/usr/local/bin/php bin/grav sc
 USER root
 
 RUN rm /etc/nginx/http.d/default.conf
-RUN cp /var/www/html/webserver-configs/nginx.conf /etc/nginx/http.d
+RUN cp /var/www/html/webserver-configs/nginx.conf /etc/nginx/http.d/grav.conf
+
 
 # Copy init scripts
-# COPY docker-entrypoint.sh /entrypoint.sh
+COPY docker-entrypoint.sh /entrypoint.sh
 
 # provide container inside image for data persistence
 VOLUME ["/var/www/html"]
 
-# ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 # CMD ["apache2-foreground"]
-CMD ["sh", "-c", "crond && php-fpm8 && nginx -g 'daemon-off;"]
+CMD ["sh", "-c", "crond && php-fpm8 && nginx -g 'daemon-off;'"]
