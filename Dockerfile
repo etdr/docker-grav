@@ -90,6 +90,8 @@ RUN cp /var/www/html/webserver-configs/nginx.conf /etc/nginx/http.d/grav.conf
 # Copy init scripts
 COPY docker-entrypoint.sh /entrypoint.sh
 
+USER www-data
+
 # provide container inside image for data persistence
 VOLUME ["/var/www/html"]
 
