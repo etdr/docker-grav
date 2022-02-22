@@ -64,6 +64,7 @@ RUN pecl install apcu \
 
 # Set user to www-data
 RUN chown -R www-data:www-data /var/www
+RUN rm /var/www/html
 USER www-data
 
 # Define Grav specific version of Grav or use latest stable
@@ -73,7 +74,7 @@ ARG GRAV_VERSION=latest
 WORKDIR /var/www
 RUN curl -o grav-admin.zip -SL https://getgrav.org/download/core/grav-admin/${GRAV_VERSION} && \
     unzip grav-admin.zip && \
-    mv /var/www/grav-admin /var/www/html && \
+    mv -T /var/www/grav-admin /var/www/html && \
     rm grav-admin.zip
 
 # Create cron job for Grav maintenance scripts
@@ -90,7 +91,7 @@ RUN cp /var/www/html/webserver-configs/nginx.conf /etc/nginx/http.d/grav.conf
 COPY docker-entrypoint.sh /entrypoint.sh
 
 # provide container inside image for data persistence
-VOLUME ["/var/www/html"]
+#VOLUME ["/var/www/html"]
 
 ENTRYPOINT ["/entrypoint.sh"]
 # CMD ["apache2-foreground"]
