@@ -64,7 +64,7 @@ RUN pecl install apcu \
 
 # Set user to www-data
 RUN chown -R www-data:www-data /var/www
-# RUN rm /var/www/html
+RUN chown www-data:www-data /var/www/html
 USER www-data
 
 # Define Grav specific version of Grav or use latest stable
@@ -74,7 +74,7 @@ ARG GRAV_VERSION=latest
 WORKDIR /var/www
 RUN curl -o grav-admin.zip -SL https://getgrav.org/download/core/grav-admin/${GRAV_VERSION} && \
     unzip grav-admin.zip && \
-    mv /var/www/grav-admin /var/www/html && \
+    mv /var/www/grav-admin/* /var/www/html && \
     rm grav-admin.zip
 
 # Create cron job for Grav maintenance scripts
