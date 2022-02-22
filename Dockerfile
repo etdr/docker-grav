@@ -94,4 +94,4 @@ VOLUME ["/var/www/html"]
 
 ENTRYPOINT ["/entrypoint.sh"]
 # CMD ["apache2-foreground"]
-CMD ["sh", "-c", "crond && php-fpm8 && nginx -g 'daemon-off;'"]
+CMD ["sh", "-c", "crond && php-fpm8 && nginx -g 'daemon off;'"]
