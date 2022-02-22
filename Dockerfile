@@ -64,7 +64,7 @@ RUN pecl install apcu \
 
 # Set user to www-data
 RUN chown -R www-data:www-data /var/www
-RUN chown www-data:www-data /var/www/html
+RUN chown -R www-data:www-data /var/www/html
 USER www-data
 
 # Define Grav specific version of Grav or use latest stable
@@ -91,7 +91,7 @@ RUN cp /var/www/html/webserver-configs/nginx.conf /etc/nginx/http.d/grav.conf
 COPY docker-entrypoint.sh /entrypoint.sh
 
 # provide container inside image for data persistence
-#VOLUME ["/var/www/html"]
+VOLUME ["/var/www/html"]
 
 ENTRYPOINT ["/entrypoint.sh"]
 # CMD ["apache2-foreground"]
