@@ -64,7 +64,7 @@ RUN pecl install apcu \
 
 # Set user to www-data
 RUN chown -R www-data:www-data /var/www
-RUN rm /var/www/html
+# RUN rm /var/www/html
 USER www-data
 
 # Define Grav specific version of Grav or use latest stable
