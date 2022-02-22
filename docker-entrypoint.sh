@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 sed -i 's/root \/home\/USER/root \/var/g' /etc/nginx/http.d/grav.conf
 
