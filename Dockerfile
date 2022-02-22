@@ -63,7 +63,7 @@ RUN pecl install apcu \
     && docker-php-ext-enable apcu yaml
 
 # Set user to www-data
-RUN chown www-data:www-data /var/www
+RUN chown -R www-data:www-data /var/www
 USER www-data
 
 # Define Grav specific version of Grav or use latest stable
