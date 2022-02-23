@@ -77,8 +77,8 @@ ARG GRAV_VERSION=latest
 # Install grav
 WORKDIR /var/www
 RUN curl -o grav-admin.zip -SL https://getgrav.org/download/core/grav-admin/${GRAV_VERSION} && \
-    unzip grav-admin.zip && \
-    mv /var/www/grav-admin/* /var/www/html && \
+    unzip grav-admin.zip -d /var/www/html && \
+    #mv /var/www/grav-admin/* /var/www/html && \
     rm grav-admin.zip
 
 # Create cron job for Grav maintenance scripts
