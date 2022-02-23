@@ -13,4 +13,7 @@ sed -e 's/127.0.0.1:9000/\/var\/run\/php8-fpm.sock/g' \
     -e 's/;listen.group = nobody/listen.group = www-data/g' \
     -i /etc/php8/php-fpm.d/www.conf
 
+sed -e 's/;extension=mbstring/extension=mbstring/g' \
+    -i /etc/php8/php.ini
+
 exec "$@"
