@@ -62,8 +62,6 @@ RUN pecl install apcu \
     && pecl install yaml \
     && docker-php-ext-enable apcu yaml
 
-RUN mkdir /var/www/html
-
 # provide container inside image for data persistence
 VOLUME ["/var/www/html"]
 
