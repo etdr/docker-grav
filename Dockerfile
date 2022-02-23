@@ -62,8 +62,7 @@ RUN pecl install apcu \
     && pecl install yaml \
     && docker-php-ext-enable apcu yaml
 
-# provide container inside image for data persistence
-VOLUME ["/var/www/html"]
+
 
 
 # Set user to www-data
@@ -78,20 +77,15 @@ ARG GRAV_VERSION=latest
 WORKDIR /var/www
 RUN curl -o grav-admin.zip -SL https://getgrav.org/download/core/grav-admin/${GRAV_VERSION} && \
     unzip grav-admin.zip && \
-    ls -al . && \
-    mv /var/www/grav-admin/* /var/www/html && \
-    ls -al html && \
+    mkdir grav && \
+    mv /var/www/grav-admin/* /var/www/grav && \
     rm grav-admin.zip
-
-RUN ls -al html
 
 # Create cron job for Grav maintenance scripts
 RUN (crontab -l; echo "* * * * * cd /var/www/html;/usr/local/bin/php bin/grav scheduler 1>> /dev/null 2>&1") | crontab -
 
 # Return to root user
-#USER root
-
-RUN ls -al html
+USER root
 
 RUN rm /etc/nginx/http.d/default.conf
 RUN cp /var/www/html/webserver-configs/nginx.conf /etc/nginx/http.d/grav.conf
@@ -100,7 +94,8 @@ RUN cp /var/www/html/webserver-configs/nginx.conf /etc/nginx/http.d/grav.conf
 # Copy init scripts
 COPY docker-entrypoint.sh /entrypoint.sh
 
-
+# provide container inside image for data persistence
+VOLUME ["/var/www/grav"]
 
 ENTRYPOINT ["/entrypoint.sh"]
 # CMD ["apache2-foreground"]
