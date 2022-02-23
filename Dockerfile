@@ -80,6 +80,7 @@ RUN curl -o grav-admin.zip -SL https://getgrav.org/download/core/grav-admin/${GR
     unzip grav-admin.zip && \
     ls -al . && \
     mv /var/www/grav-admin/* /var/www/html && \
+    ls -al html && \
     rm grav-admin.zip
 
 # Create cron job for Grav maintenance scripts
