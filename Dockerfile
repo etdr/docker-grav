@@ -89,6 +89,8 @@ RUN (crontab -l; echo "* * * * * cd /var/www/html;/usr/local/bin/php bin/grav sc
 # Return to root user
 USER root
 
+RUN ls -al html
+
 RUN rm /etc/nginx/http.d/default.conf
 RUN cp /var/www/html/webserver-configs/nginx.conf /etc/nginx/http.d/grav.conf
 
