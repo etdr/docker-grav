@@ -32,6 +32,7 @@ RUN apk update && apk add \
     cronie \
     micro \
     autoconf make \
+    php8-mbstring \
     && docker-php-ext-install opcache \
     #php8-opcache \
     && docker-php-ext-configure intl \
