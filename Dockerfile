@@ -88,7 +88,7 @@ RUN (crontab -l; echo "* * * * * cd /var/www/html;/usr/local/bin/php bin/grav sc
 USER root
 
 RUN rm /etc/nginx/http.d/default.conf
-RUN cp /var/www/html/webserver-configs/nginx.conf /etc/nginx/http.d/grav.conf
+RUN cp /var/www/grav/webserver-configs/nginx.conf /etc/nginx/http.d/grav.conf
 
 
 # Copy init scripts
