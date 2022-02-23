@@ -1,12 +1,14 @@
 #!/bin/sh
 set -e
 
-sed -i 's/root \/home\/USER/root \/var/g' /etc/nginx/http.d/grav.conf
+sed -e 's/root \/home\/USER/root \/var/g' \
+    -e "s/localhost/$SERVER_NAME/g" \
+    -e 's/\/www\/html/\/www\/grav/g' \
+    -e 's/\#listen 80/listen 10880/g' \
+    -e 's/php\/php7.2-fpm.sock/php8-fpm.sock/g' \
+    -i /etc/nginx/http.d/grav.conf
 
-sed -i "s/localhost/$SERVER_NAME/g" /etc/nginx/http.d/grav.conf
-
-sed -i 's/\/www\/html/\/www\/grav/g' /etc/nginx/http.d/grav.conf
-
-sed -i 's/\#listen 80/listen 10880/g' /etc/nginx/http.d/grav.conf
+sed -e 's/127.0.0.1:9000/\/var\/run\/php8-fpm.sock' \
+    -i /etc/php8/php-fpm.d/www.conf
 
 exec "$@"
