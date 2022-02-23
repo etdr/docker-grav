@@ -95,6 +95,10 @@ RUN cp /var/www/grav/webserver-configs/nginx.conf /etc/nginx/http.d/grav.conf
 RUN sed -e 's/\;extension=mbstring/extension=mbstring/g' \
         -i /etc/php8/php.ini
 
+RUN sed -e 's/user = nobody/user = www-data/g' \
+        -e 's/group = nobody/group = www-data/g' \
+        -i /etc/php8/php-fpm.d/www.conf
+
 
 # Copy init scripts
 COPY docker-entrypoint.sh /entrypoint.sh
