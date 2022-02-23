@@ -8,7 +8,7 @@ sed -e 's/root \/home\/USER/root \/var/g' \
     -e 's/php\/php7.2-fpm.sock/php8-fpm.sock/g' \
     -i /etc/nginx/http.d/grav.conf
 
-sed -e 's/127.0.0.1:9000/\/var\/run\/php8-fpm.sock' \
+sed -e 's/127.0.0.1:9000/\/var\/run\/php8-fpm.sock/g' \
     -i /etc/php8/php-fpm.d/www.conf
 
 exec "$@"
