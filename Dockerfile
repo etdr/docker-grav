@@ -34,6 +34,9 @@ RUN apk update && apk add \
     autoconf make \
     php8-mbstring \
     php8-session \
+    php8-curl php8-dom php8-gd php8-openssl \
+    php8-xml php8-xmlreader php8-xmlwriter \
+    php8-zip \
     && docker-php-ext-install opcache \
     #php8-opcache \
     && docker-php-ext-configure intl \
