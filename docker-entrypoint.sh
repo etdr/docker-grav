@@ -4,7 +4,7 @@ set -e
 sed -e 's/root \/home\/USER/root \/var/g' \
     -e "s/localhost/$SERVER_NAME/g" \
     -e 's/\/www\/html/\/www\/grav/g' \
-    -e 's/\#listen 80/listen 10880/g' \
+    -e 's/\#listen 80/listen 80/g' \
     -e 's/php\/php7.2-fpm.sock/php8-fpm.sock/g' \
     -i /etc/nginx/http.d/grav.conf
 
